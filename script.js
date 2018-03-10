@@ -75,21 +75,37 @@ function videoControls(video) {
 }
 
 $('.placeholder').on('click', (e) => {
+  $('.placeholder').unbind('mouseleave')
+  $('.placeholder').unbind('mouseenter')
+  $('.close-btn').show();
   const video = document.querySelector('.placeholder');
+  $(e.target).trigger('pause');
   $(e.target).addClass('max-video')
   const accText = $(e.target).parent().find('.acc-text')
   accText.hide();
-  const parentContainer = $(e.target).parent();
-  parentContainer.css('justify-content', 'center');
-  $('.placeholder').unbind('mouseleave')
-  $('.placeholder').unbind('mouseenter')
   video.currentTime = 0;
   const currentVideo = new videoControls(video)
-  $(e.target).trigger('play');
+  $('.tv-border').show()
+  // $(e.target).trigger('play');
   video.ontimeupdate = () => {
     if (video.currentTime >= currentVideo.length) {
       video.currentTime = 0
       currentVideo.pause()
     }
   }
+})
+
+$('.close-btn').on('click', (e) => {
+  document.querySelector('.close-sound').currentTime = 1;
+  $('.close-sound').trigger('play');
+  $('.close-btn').hide();
+  $('.crash-effect').show();
+  $('.placeholder').each((i, video) => {
+    if ($(video).hasClass('max-video')) {
+      $(video).removeClass('max-video')
+      // $(video).css('animation', 'enlarge-video 1s reverse');
+    }
+  })
+  const accText = $('.acc-content-active').find('.acc-text');
+  accText.show();
 })

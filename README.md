@@ -6,3 +6,6 @@
  - Add video for intro (opening credits)
  - Elastic animation for enlarging video
  - Add classic tv border around max video
+ - Add bowling icons instead of plus/minus
+ - Add crash sound for when exiting out of max video
+ - Add bowling icon for close-btn
