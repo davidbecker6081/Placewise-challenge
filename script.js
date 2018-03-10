@@ -1,7 +1,7 @@
 $(document).ready(() => {
   const introVideo = document.querySelector('.intro-video');
-  const audio = document.querySelector('audio');
-  audio.volume = 0.5;
+  // const audio = document.querySelector('audio');
+  // audio.volume = 0.5;
   introVideo.currentTime = 9;
   $('.intro-video').trigger('play');
 
@@ -51,7 +51,7 @@ $('.tab').on('click', e => {
   }
 })
 
-$('.placeholder').mouseenter(() => {
+const videoOnMouseEnter = () => {
   $('video.placeholder').trigger('play');
   const video = document.querySelector('.placeholder');
   video.currentTime = 10;
@@ -60,11 +60,14 @@ $('.placeholder').mouseenter(() => {
       video.currentTime = 10;
     }
   }
-})
+}
 
-$('.placeholder').mouseleave((e) => {
+const videoOnMouseLeave = () => {
   $('video').trigger('pause');
-})
+}
+
+$('.placeholder').mouseenter(videoOnMouseEnter)
+$('.placeholder').mouseleave(videoOnMouseLeave)
 
 function videoControls(video) {
   this.video = video;
@@ -86,7 +89,8 @@ $('.placeholder').on('click', (e) => {
   video.currentTime = 0;
   const currentVideo = new videoControls(video)
   $('.tv-border').show()
-  // $(e.target).trigger('play');
+  $('.tv-on-sound').trigger('play');
+  $(e.target).trigger('play');
   video.ontimeupdate = () => {
     if (video.currentTime >= currentVideo.length) {
       video.currentTime = 0
@@ -102,10 +106,14 @@ $('.close-btn').on('click', (e) => {
   $('.crash-effect').show();
   $('.placeholder').each((i, video) => {
     if ($(video).hasClass('max-video')) {
+      document.querySelector('.max-video').currentTime = 10
+      $(video).trigger('pause')
       $(video).removeClass('max-video')
-      // $(video).css('animation', 'enlarge-video 1s reverse');
     }
   })
+  $('.placeholder').bind('mouseenter', videoOnMouseEnter)
+  $('.placeholder').bind('mouseleave', videoOnMouseLeave)
+  $('.tv-border').hide();
   const accText = $('.acc-content-active').find('.acc-text');
   accText.show();
 })
