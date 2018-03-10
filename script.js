@@ -9,7 +9,8 @@ $(document).ready(() => {
     $('.intro-video').addClass('intro-video-fade-out');
     $('.intro-video').trigger('pause');
     // $('audio').trigger('play');
-  }, 2000)
+    // $('.intro-video').hide();
+  }, 500)
 })
 
 const addContentActive = (position) => {
@@ -63,4 +64,32 @@ $('.placeholder').mouseenter(() => {
 
 $('.placeholder').mouseleave((e) => {
   $('video').trigger('pause');
+})
+
+function videoControls(video) {
+  this.video = video;
+  this.play = () => this.video.play();
+  this.pause = () => this.video.pause();
+  this.currentTime = this.video.currentTime;
+  this.length = this.video.duration;
+}
+
+$('.placeholder').on('click', (e) => {
+  const video = document.querySelector('.placeholder');
+  $(e.target).addClass('max-video')
+  const accText = $(e.target).parent().find('.acc-text')
+  accText.hide();
+  const parentContainer = $(e.target).parent();
+  parentContainer.css('justify-content', 'center');
+  $('.placeholder').unbind('mouseleave')
+  $('.placeholder').unbind('mouseenter')
+  video.currentTime = 0;
+  const currentVideo = new videoControls(video)
+  $(e.target).trigger('play');
+  video.ontimeupdate = () => {
+    if (video.currentTime >= currentVideo.length) {
+      video.currentTime = 0
+      currentVideo.pause()
+    }
+  }
 })
