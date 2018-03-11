@@ -90,7 +90,9 @@ $('.placeholder').on('click', (e) => {
   $('.placeholder').unbind('mouseenter')
   $('.close-btn').show();
   document.querySelector('.background-audio').volume = 0.1;
-  const video = document.querySelector('.placeholder');
+  const videoId = $(e.target).attr('id');
+  $(`#${videoId}`).trigger('play');
+  const video = document.querySelector(`#${videoId}`);
   $(e.target).trigger('pause');
   $(e.target).addClass('max-video')
   const accText = $(e.target).parent().find('.acc-text')
@@ -111,12 +113,13 @@ $('.placeholder').on('click', (e) => {
 $('.close-btn').on('click', (e) => {
   document.querySelector('.background-audio').volume = 1;
   document.querySelector('.close-sound').currentTime = 1;
+  document.querySelector('.close-sound').volume = 0.3;
   $('.close-sound').trigger('play');
   $('.close-btn').hide();
   $('.crash-effect').show();
   $('.placeholder').each((i, video) => {
     if ($(video).hasClass('max-video')) {
-      document.querySelector('.max-video').currentTime = 10
+      video.currentTime = videoStartTimes[$(video).attr('id')]
       $(video).trigger('pause')
       $(video).removeClass('max-video')
     }
