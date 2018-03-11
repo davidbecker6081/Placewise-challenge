@@ -11,6 +11,8 @@
  - Add bowling icon for close-btn
  - Change color scheme (maybe red, blue, light brown) - Focus on western scheme - Add to README
  - possibly deploy on Heroku
+ - Each character has own color for .active
+ - make videos so that on page load, only 10 sec video, and on click, full video
  - README
   - Where ideas came from? (inspiration with photos)
     - Color scheme

@@ -1,6 +1,7 @@
 $(document).ready(() => {
   $('.tv-on-sound').trigger('play');
-  $('.background-audio').trigger('play');
+  // $('.background-audio').trigger('play');
+  document.querySelector('video').currentTime = 10;
 })
 
 const addContentActive = (position) => {

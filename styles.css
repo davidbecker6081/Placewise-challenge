@@ -127,7 +127,7 @@ h1 {
 .section-header hr {
   height: 0.5px;
   width: 45%;
-  border: 0.5px solid #A42920;
+  border: 0.5px dashed #A42920;
 }
 
 /*TABs*/
@@ -138,7 +138,7 @@ h1 {
   background-color: #F1F1F2;
   border: 2px solid #FFFFFF;
   border-left: none;
-  border-bottom: 2px solid #A42920;
+  border-bottom: 2px dashed #A42920;
   color: #582f2d;
   /* font-family: 'Smokum', cursive; */
   font-family: 'Sancreek', cursive;
@@ -187,7 +187,7 @@ h1 {
 
 .tab-active {
   background-color: #F3F6C7;
-  border: 2px solid #A42920;
+  border: 2px dashed #A42920;
   color: #A42920;
   border-bottom: none;
   font-weight: 600;
@@ -222,7 +222,7 @@ h1 {
   order: 2;
   padding: 30px;
   width: 100%;
-  border: 2px solid #A42920;
+  border: 2px dashed #A42920;
   border-top: none;
   background-color: #f3f6c7;
 }
@@ -339,12 +339,13 @@ h3 {
 
 .acc-text hr {
   margin-bottom: 35px;
+  border: 1px dashed #A42920;
 }
 
 .acc-text p {
   margin-bottom: 45px;
   color: #582f2d;
-  font-family: 'Sonsie One', cursive;
+  font-family: 'Raleway', sans-serif;
   font-size: 1.8vw;
   line-height: 1.4;
 }
