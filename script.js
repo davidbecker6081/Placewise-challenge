@@ -4,6 +4,14 @@ $(document).ready(() => {
   document.querySelector('video').currentTime = 10;
 })
 
+const videoClasses = {
+  'placeholder the-dude': 'the-dude',
+  'placeholder walter': 'walter',
+  'placeholder donny': 'donny',
+  'placeholder jesus': 'jesus',
+  'placeholder maude': 'maude',
+}
+
 const addContentActive = (position) => {
   $('.acc-content').each((i, elem) => {
     if (position === i) {
@@ -42,13 +50,22 @@ $('.tab').on('click', e => {
   }
 })
 
-const videoOnMouseEnter = () => {
-  $('video.placeholder').trigger('play');
-  const video = document.querySelector('.placeholder');
-  video.currentTime = 10;
+const videoStartTimes = {
+  'the-dude': 10,
+  'walter': 8,
+  'donny': 1,
+  'jesus': 37,
+  'maude': 6
+}
+
+const videoOnMouseEnter = (e) => {
+  const videoId = $(e.target).attr('id');
+  $(`#${videoId}`).trigger('play');
+  const video = document.querySelector(`#${videoId}`);
+  video.currentTime = videoStartTimes[videoId]
   video.ontimeupdate = () => {
-    if (video.currentTime > 13) {
-      video.currentTime = 10;
+    if (video.currentTime > videoStartTimes[videoId] + 3) {
+      video.currentTime = videoStartTimes[videoId]
     }
   }
 }
@@ -57,7 +74,7 @@ const videoOnMouseLeave = () => {
   $('video').trigger('pause');
 }
 
-$('.placeholder').mouseenter(videoOnMouseEnter)
+$('.placeholder').mouseenter((e) => videoOnMouseEnter(e))
 $('.placeholder').mouseleave(videoOnMouseLeave)
 
 function videoControls(video) {

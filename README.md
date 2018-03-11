@@ -21,3 +21,7 @@
     - video player
   - Different features of tabs and video
   - How each feature works / and code
+  - Next Steps:
+    - Each character has own color for .active
+    - Find art characters for tabs on hover
+    - 
