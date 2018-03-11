@@ -1,16 +1,6 @@
 $(document).ready(() => {
-  const introVideo = document.querySelector('.intro-video');
-  // const audio = document.querySelector('audio');
-  // audio.volume = 0.5;
-  introVideo.currentTime = 9;
-  $('.intro-video').trigger('play');
-
-  setTimeout(() => {
-    $('.intro-video').addClass('intro-video-fade-out');
-    $('.intro-video').trigger('pause');
-    // $('audio').trigger('play');
-    // $('.intro-video').hide();
-  }, 500)
+  $('.tv-on-sound').trigger('play');
+  $('.background-audio').trigger('play');
 })
 
 const addContentActive = (position) => {
@@ -81,6 +71,7 @@ $('.placeholder').on('click', (e) => {
   $('.placeholder').unbind('mouseleave')
   $('.placeholder').unbind('mouseenter')
   $('.close-btn').show();
+  document.querySelector('.background-audio').volume = 0.1;
   const video = document.querySelector('.placeholder');
   $(e.target).trigger('pause');
   $(e.target).addClass('max-video')
@@ -100,6 +91,7 @@ $('.placeholder').on('click', (e) => {
 })
 
 $('.close-btn').on('click', (e) => {
+  document.querySelector('.background-audio').volume = 1;
   document.querySelector('.close-sound').currentTime = 1;
   $('.close-sound').trigger('play');
   $('.close-btn').hide();

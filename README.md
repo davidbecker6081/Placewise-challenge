@@ -9,3 +9,13 @@
  - Add bowling icons instead of plus/minus
  - Add crash sound for when exiting out of max video
  - Add bowling icon for close-btn
+ - Change color scheme (maybe red, blue, light brown) - Focus on western scheme - Add to README
+ - possibly deploy on Heroku
+ - README
+  - Where ideas came from? (inspiration with photos)
+    - Color scheme
+    - fonts
+    - video
+    - video player
+  - Different features of tabs and video
+  - How each feature works / and code

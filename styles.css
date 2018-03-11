@@ -17,6 +17,20 @@ main {
   align-items: center;
   flex-direction: column;
   padding: 65px 70px;
+  animation: fade-in 2s 1;
+  opacity: 1;
+  transform: scale(1;)
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 h1,
@@ -113,7 +127,7 @@ h1 {
 .section-header hr {
   height: 0.5px;
   width: 45%;
-  border: 0.5px solid #D1D2D3;
+  border: 0.5px solid #A42920;
 }
 
 /*TABs*/
@@ -121,11 +135,11 @@ h1 {
 .tab {
   padding: 30px 25px 20px 25px;
   flex-grow: 2;
-  background-color: #F2F2F2;
+  background-color: #F1F1F2;
   border: 2px solid #FFFFFF;
   border-left: none;
-  border-bottom: 2px solid #D1D2D3;
-  color: #666666;
+  border-bottom: 2px solid #A42920;
+  color: #582f2d;
   /* font-family: 'Smokum', cursive; */
   font-family: 'Sancreek', cursive;
   font-size: 2.5vw;
@@ -139,17 +153,42 @@ h1 {
 }
 
 .tab:nth-of-type(5).tab-active {
-  border-right: 2px solid #D1D2D3;
+  border-right: 2px solid #A42920;
+  color: #A42920;
 }
 
 .tab:hover {
   cursor: pointer;
   opacity: 0.8;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
+/* .tab:nth-of-type(1):hover {
+  background-image: url('./assets/Lebowski-tab.jpeg');
+}
+
+.tab:nth-of-type(2):hover {
+  background-image: url('./assets/Walter-tab.jpg');
+}
+
+.tab:nth-of-type(3):hover {
+  background-image: url('./assets/Donny-Tab.jpeg');
+}
+
+.tab:nth-of-type(4):hover {
+  background-image: url('./assets/jesus-tab.jpg');
+}
+
+.tab:nth-of-type(5):hover {
+  background-image: url('./assets/Maude-tab.jpeg');
+} */
+
 .tab-active {
-  background-color: #FFFFFF;
-  border: 2px solid #D1D2D3;
+  background-color: #F3F6C7;
+  border: 2px solid #A42920;
+  color: #A42920;
   border-bottom: none;
   font-weight: 600;
   z-index: 10;
@@ -157,7 +196,6 @@ h1 {
 
 .tab-active:hover {
   cursor: default;
-  background-color: #FFFFFF;
 }
 
 #tab-btn {
@@ -184,18 +222,29 @@ h1 {
   order: 2;
   padding: 30px;
   width: 100%;
-  border: 2px solid #D1D2D3;
+  border: 2px solid #A42920;
   border-top: none;
+  background-color: #f3f6c7;
 }
 
 .placeholder {
   align-self: center;
   height: 50%;
+  background-color: #86a7a2f7;
+  border: 1px solid #86A7A2;
+  border-radius: 2px;
+  transition: 0.5s;
   /* border: 2px solid #D1D2D3; */
+  box-shadow: 1px 3px 10px 2px #00000075;
 }
 
 .placeholder:hover {
   cursor: pointer;
+  background-color: #86a7a2f7;
+  border: 5px solid #86A7A2;
+  border-radius: 2px;
+  transform: scale(1.05);
+  transition: 0.5s;
 }
 
 .max-video {
@@ -285,6 +334,7 @@ h3 {
   margin-bottom: 30px;
   font-size: 3vw;
   font-family: 'Sancreek', cursive;
+  color: #A42920;
 }
 
 .acc-text hr {
@@ -293,6 +343,7 @@ h3 {
 
 .acc-text p {
   margin-bottom: 45px;
+  color: #582f2d;
   font-family: 'Sonsie One', cursive;
   font-size: 1.8vw;
   line-height: 1.4;
