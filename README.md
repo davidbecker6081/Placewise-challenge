@@ -15,6 +15,7 @@
  - make videos so that on page load, only 10 sec video, and on click, full video
  - Fix mobile view video hover
  - Have main drop down from top (like bowling pins), (with cage gate going up?)
+ - Change name consts to ALL_CAPS style
  - README
   - Where ideas came from? (inspiration with photos)
     - Color scheme

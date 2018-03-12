@@ -1,6 +1,6 @@
 $(document).ready(() => {
   document.querySelector('#the-dude').currentTime = 10;
-  $('.background-audio').trigger('play');
+  // $('.background-audio').trigger('play');
   checkWindowWidth($(window).width())
 })
 
@@ -10,6 +10,7 @@ const checkWindowWidth = (windowWidth) => {
   if (windowWidth <= 700) {
     $('.placeholder').unbind('mouseleave')
     $('.placeholder').unbind('mouseenter')
+    $('.play-btn').show();
   } else {
     $('.placeholder').bind('mouseenter', videoOnMouseEnter)
     $('.placeholder').bind('mouseleave', videoOnMouseLeave)
