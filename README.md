@@ -24,6 +24,58 @@
     - video player
   - Different features of tabs and video
   - How each feature works / and code
+  - Things I tried but couldn't figure out in time
+    - Add play/pause button on hover
+      - Create separate branch for code that doesn't work
+      
+      `const togglePausePlayBtn = (e, button = 'play') => {
+        console.log(e)
+        if (e === 'enter' && button === 'play') {
+          console.log('enter if')
+          $('.pause-btn-high').show()
+        } else if (e === 'leave' && button === 'play') {
+          $('.pause-btn-high').hide()
+        } else  if (e === 'enter' && button === 'pause') {
+          $('.play-btn-high').show()
+        } else  if (e === 'leave' && button === 'pause') {
+          $('.play-btn-high').hide()
+        }
+      }
+
+      const bindEventsVideoPlayer = (videoState) => {
+        if (videoState === 'play') {
+          console.log('play')
+          $('.video.player-container').bind('mouseenter', () => togglePausePlayBtn('enter', 'play'))
+          $('.video.player-container').bind('mouseleave', () => togglePausePlayBtn('leave', 'play'))
+        } else if (videoState === 'pause') {
+          console.log('pause')
+          $('.video.player-container').bind('mouseenter', () => togglePausePlayBtn('enter', 'pause'))
+          $('.video.player-container').bind('mouseleave', () => togglePausePlayBtn('leave', 'pause'))
+        }
+      }
+
+      $('.video-player-container').mouseenter(togglePausePlayBtn('enter'))
+      $('.video-player-container').mouseleave(togglePausePlayBtn('leave'))
+
+      $('.play-btn-low').on('click', (e) => {
+        $(e.target).closest('video').trigger('play');
+        $('.play-btn-low').hide();
+        bindEventsVideoPlayer('pause')
+      })
+
+      $('.pause-btn-high').on('click', (e) => {
+        $(e.target).parent().find('video').trigger('pause');
+        $('.pause-btn-high').hide();
+        bindEventsVideoPlayer('play')
+
+      })
+
+      $('.play-btn-high').on('click', (e) => {
+        $(e.target).parent().find('video').trigger('play')
+        $('.play-btn-high').hide();
+        bindEventsVideoPlayer('pause')
+      })`
+
   - Next Steps:
     - Each character has own color for .active
     - Find art characters for tabs on hover

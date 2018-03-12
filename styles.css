@@ -259,20 +259,32 @@ h1 {
 }
 
 .play-btn,
-.pause-btn {
+.play-btn-mobile {
   display: none;
   align-self: center;
   position: absolute;
-  margin-top: 10px;
+  bottom: 45vh;
+  left: 38vw;
   height: 10%;
   width: 10%;
+}
+
+.play-btn-mobile {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  top: 100px;
+}
+
+.play-btn:hover {
+  cursor: pointer;
 }
 
 .close-btn {
   display: none;
   position: absolute;
-  top: 10%;
-  right: 5%;
+  right: 5vw;
+  margin-top: 20px;
   height: 60px;
   padding: 0;
   width: 60px;
@@ -284,6 +296,9 @@ h1 {
   background-size: contain;
   border: none;
   border-radius: 25%;
+}
+
+.close-btn:hover {
   cursor: pointer;
 }
 
@@ -497,10 +512,6 @@ h3 {
   .placeholder:hover {
     border: none;
     transform: scale(1);
-  }
-
-  .play-btn {
-    display: block;
   }
 
   .acc-text {

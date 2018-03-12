@@ -8,12 +8,13 @@ $(window).on('resize', () => {checkWindowWidth($(window).width())})
 
 const checkWindowWidth = (windowWidth) => {
   if (windowWidth <= 700) {
-    $('.placeholder').unbind('mouseleave')
-    $('.placeholder').unbind('mouseenter')
-    $('.play-btn').show();
+    $('.placeholder').unbind('mouseleave');
+    $('.placeholder').unbind('mouseenter');
+    $('.play-btn-mobile').show();
   } else {
-    $('.placeholder').bind('mouseenter', videoOnMouseEnter)
-    $('.placeholder').bind('mouseleave', videoOnMouseLeave)
+    $('.placeholder').bind('mouseenter', videoOnMouseEnter);
+    $('.placeholder').bind('mouseleave', videoOnMouseLeave);
+    $('.play-btn-mobile').hide();
   }
 }
 
@@ -71,6 +72,29 @@ const videoStartTimes = {
   'maude': 6
 }
 
+const VIDEO_URLS = {
+  'the-dude': {
+    low: 'assets/The-Dude-preview.m4v',
+    high: 'assets/The-Dude-Clip-with-frame.mp4'
+  },
+  'walter': {
+    low: '',
+    high: ''
+  },
+  'donny': {
+    low: '',
+    high: ''
+  },
+  'jesus': {
+    low: '',
+    high: ''
+  },
+  'maude': {
+    low: '',
+    high: ''
+  }
+}
+
 const videoPaths = {
   'the-dude': 'assets/The-Dude-Clip-with-frame.mp4',
   'walter': 'url1',
@@ -100,6 +124,7 @@ $('.placeholder').mouseleave(videoOnMouseLeave)
 
 function videoControls(video) {
   this.video = video;
+  this.state = 'pause';
   this.play = () => this.video.play();
   this.pause = () => this.video.pause();
   this.currentTime = this.video.currentTime;
@@ -118,7 +143,7 @@ $('.placeholder').on('click', (e) => {
   $('.close-btn').show();
   $(e.target).trigger('pause');
   $('main').hide();
-  $('.video-player-container').show();
+  $('.video-player-container').removeClass('hidden');
   document.querySelector('.background-audio').volume = 0.1;
   $(`#${videoId}-max`).trigger('play');
   const video = document.querySelector(`#${videoId}`);
@@ -126,12 +151,13 @@ $('.placeholder').on('click', (e) => {
   video.currentTime = 0;
   const currentVideo = new videoControls(video)
   $('.tv-on-sound').trigger('play');
-  video.ontimeupdate = () => {
-    if (video.currentTime >= currentVideo.length) {
-      video.currentTime = 0
-      currentVideo.pause()
+  $('.video-player-video').on('timeupdate', () => {
+    const maxVideo = document.querySelector('.video-player-video')
+    if (maxVideo.currentTime >= maxVideo.duration) {
+      maxVideo.currentTime = 0
+      $('.play-btn').show();
     }
-  }
+  })
 })
 
 $('.close-btn').on('click', (e) => {
@@ -144,7 +170,19 @@ $('.close-btn').on('click', (e) => {
   $('.video-player-video').trigger('pause');
   $('.placeholder').bind('mouseenter', videoOnMouseEnter)
   $('.placeholder').bind('mouseleave', videoOnMouseLeave)
-  $('.video-player-container').hide();
+  $('.video-player-container').addClass('hidden');
   $('main').css('animation', 'none');
   $('main').show();
+  $('.video-player-video').remove();
+})
+
+$('.video-player-container').on('click', (e) => {
+  const video = document.querySelector('.video-player-video')
+  if (video.paused) {
+    $('.video-player-video').trigger('play')
+    $('.play-btn').hide();
+  } else {
+    $('.video-player-video').trigger('pause')
+    $('.play-btn').show();
+  }
 })
