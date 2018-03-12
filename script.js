@@ -1,7 +1,20 @@
 $(document).ready(() => {
   document.querySelector('#the-dude').currentTime = 10;
   $('.background-audio').trigger('play');
+  checkWindowWidth($(window).width())
 })
+
+$(window).on('resize', () => {checkWindowWidth($(window).width())})
+
+const checkWindowWidth = (windowWidth) => {
+  if (windowWidth <= 700) {
+    $('.placeholder').unbind('mouseleave')
+    $('.placeholder').unbind('mouseenter')
+  } else {
+    $('.placeholder').bind('mouseenter', videoOnMouseEnter)
+    $('.placeholder').bind('mouseleave', videoOnMouseLeave)
+  }
+}
 
 const videoClasses = {
   'placeholder the-dude': 'the-dude',
