@@ -26,7 +26,6 @@
 
     <main>
       <!-- Accordion (acc)-->
-      <img class="tv-border" src="assets/OLD-SCHOOL-TV.png" alt="old school television" hidden>
         <div class="section-header">
           <h2 class="section-h2">The Big Lebowski</h2>
           <img class="white-russian" src="assets/white_russian_300px.png" alt="white russian in glass">
@@ -40,7 +39,7 @@
             </div>
             <article class="acc-content acc-content-active">
               <!-- <img class="placeholder" src="./assets/white_russian_300px.png" alt="the dude lebowski"> -->
-              <video class="placeholder" id="the-dude">
+              <video class="placeholder" id="the-dude" preload="metadata">
                 <source class="video-window" src="assets/The-Dude-Clip.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -59,7 +58,7 @@
               <i class="fa fa-plus" id="tab-btn" aria-hidden="true"></i>
             </div>
             <article class="acc-content">
-              <video class="placeholder" id="walter">
+              <video class="placeholder" id="walter" preload="metadata">
                 <source class="video-window" src="assets/Walter-clip.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -78,7 +77,7 @@
               <i class="fa fa-plus" id="tab-btn" aria-hidden="true"></i>
             </div>
             <article class="acc-content">
-              <video class="placeholder" id="donny">
+              <video class="placeholder" id="donny" preload="metadata">
                 <source class="video-window" src="assets/Donny-clip.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -97,7 +96,7 @@
               <i class="fa fa-plus" id="tab-btn" aria-hidden="true"></i>
             </div>
             <article class="acc-content">
-              <video class="placeholder" id="jesus">
+              <video class="placeholder" id="jesus" preload="metadata">
                 <source class="video-window" src="assets/jesus-clip.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -116,7 +115,7 @@
               <i class="fa fa-plus" id="tab-btn" aria-hidden="true"></i>
             </div>
             <article class="acc-content">
-              <video class="placeholder" id="maude">
+              <video class="placeholder" id="maude" preload="metadata">
                 <source class="video-window" src="assets/Maude-clip.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -131,7 +130,17 @@
             </article>
 
       </section>
+
     </main>
+
+    <section class="video-player-container" hidden>
+      <video class="video-player-video" id="the-dude-max">
+        <source class="video-window" src="assets/The-Dude-Clip-with-frame.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button class="close-btn" type="button" name="button"></button>
+      <img class="crash-effect" src="assets/bowling-pins.svg" alt="bowling pins" hidden/>
+    </section>
 
     <script src="https://use.fontawesome.com/71dc415965.js"></script>
     <script src="jquery.js" charset="utf-8"></script>

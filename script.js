@@ -1,7 +1,6 @@
 $(document).ready(() => {
-  $('.tv-on-sound').trigger('play');
+  document.querySelector('#the-dude').currentTime = 10;
   // $('.background-audio').trigger('play');
-  document.querySelector('video').currentTime = 10;
 })
 
 const videoClasses = {
@@ -58,6 +57,14 @@ const videoStartTimes = {
   'maude': 6
 }
 
+const videoPaths = {
+  'the-dude': 'url1',
+  'walter': 'url1',
+  'donny': 'url1',
+  'jesus': 'url1',
+  'maude': 'url1'
+}
+
 const videoOnMouseEnter = (e) => {
   const videoId = $(e.target).attr('id');
   $(`#${videoId}`).trigger('play');
@@ -89,19 +96,17 @@ $('.placeholder').on('click', (e) => {
   $('.placeholder').unbind('mouseleave')
   $('.placeholder').unbind('mouseenter')
   $('.close-btn').show();
+  $(e.target).trigger('pause');
+  $('main').hide();
+  $('.video-player-container').show();
   document.querySelector('.background-audio').volume = 0.1;
   const videoId = $(e.target).attr('id');
-  $(`#${videoId}`).trigger('play');
+  $(`#${videoId}-max`).trigger('play');
   const video = document.querySelector(`#${videoId}`);
-  $(e.target).trigger('pause');
-  $(e.target).addClass('max-video')
-  const accText = $(e.target).parent().find('.acc-text')
-  accText.hide();
+  $('main').hide();
   video.currentTime = 0;
   const currentVideo = new videoControls(video)
-  $('.tv-border').show()
   $('.tv-on-sound').trigger('play');
-  $(e.target).trigger('play');
   video.ontimeupdate = () => {
     if (video.currentTime >= currentVideo.length) {
       video.currentTime = 0
@@ -117,16 +122,10 @@ $('.close-btn').on('click', (e) => {
   $('.close-sound').trigger('play');
   $('.close-btn').hide();
   $('.crash-effect').show();
-  $('.placeholder').each((i, video) => {
-    if ($(video).hasClass('max-video')) {
-      video.currentTime = videoStartTimes[$(video).attr('id')]
-      $(video).trigger('pause')
-      $(video).removeClass('max-video')
-    }
-  })
+  $('.video-player-video').trigger('pause');
   $('.placeholder').bind('mouseenter', videoOnMouseEnter)
   $('.placeholder').bind('mouseleave', videoOnMouseLeave)
-  $('.tv-border').hide();
-  const accText = $('.acc-content-active').find('.acc-text');
-  accText.show();
+  $('.video-player-container').hide();
+  $('main').css('animation', 'none');
+  $('main').show();
 })
