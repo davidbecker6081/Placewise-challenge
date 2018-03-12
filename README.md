@@ -13,6 +13,8 @@
  - possibly deploy on Heroku
  - Each character has own color for .active
  - make videos so that on page load, only 10 sec video, and on click, full video
+ - Fix mobile view video hover
+ - Have main drop down from top (like bowling pins), (with cage gate going up?)
  - README
   - Where ideas came from? (inspiration with photos)
     - Color scheme
@@ -24,4 +26,4 @@
   - Next Steps:
     - Each character has own color for .active
     - Find art characters for tabs on hover
-    - 
+    -

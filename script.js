@@ -1,6 +1,6 @@
 $(document).ready(() => {
   document.querySelector('#the-dude').currentTime = 10;
-  // $('.background-audio').trigger('play');
+  $('.background-audio').trigger('play');
 })
 
 const videoClasses = {
@@ -58,7 +58,7 @@ const videoStartTimes = {
 }
 
 const videoPaths = {
-  'the-dude': 'url1',
+  'the-dude': 'assets/The-Dude-Clip-with-frame.mp4',
   'walter': 'url1',
   'donny': 'url1',
   'jesus': 'url1',
@@ -95,12 +95,17 @@ function videoControls(video) {
 $('.placeholder').on('click', (e) => {
   $('.placeholder').unbind('mouseleave')
   $('.placeholder').unbind('mouseenter')
+  const videoId = $(e.target).attr('id');
+  $('.video-player-container').prepend(`
+    <video class="video-player-video" id="${videoId}-max">
+      <source class="video-window" src=${videoPaths[videoId]} type="video/mp4">
+      Your browser does not support the video tag.
+    </video>`)
   $('.close-btn').show();
   $(e.target).trigger('pause');
   $('main').hide();
   $('.video-player-container').show();
   document.querySelector('.background-audio').volume = 0.1;
-  const videoId = $(e.target).attr('id');
   $(`#${videoId}-max`).trigger('play');
   const video = document.querySelector(`#${videoId}`);
   $('main').hide();

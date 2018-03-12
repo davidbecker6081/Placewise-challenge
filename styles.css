@@ -17,9 +17,11 @@ main {
   align-items: center;
   flex-direction: column;
   padding: 65px 70px;
-  animation: fade-in 2s 1;
-  opacity: 1;
-  transform: scale(1)
+  animation: drop-down 2s 1;
+  /* animation: fade-in 2s 1; */
+  /* opacity: 1; */
+  /* transform: scale(1) */
+  position: absolute;
 }
 
 @keyframes fade-in {
@@ -30,6 +32,15 @@ main {
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes drop-down {
+  0% {
+    bottom: 100vh;
+  }
+  100% {
+    bottom: 16vh;;
   }
 }
 
@@ -153,7 +164,7 @@ h1 {
 }
 
 .tab:nth-of-type(5).tab-active {
-  border-right: 2px solid #A42920;
+  border-right: 2px dashed #A42920;
   color: #A42920;
 }
 
@@ -360,7 +371,12 @@ h3 {
 }
 
 .video-player-video {
+  height: 100%;
+  width: 100%;
+}
 
+.hidden {
+  display: none;
 }
 
 /*MEDIA QUERIES*/
@@ -375,7 +391,6 @@ h3 {
 
   main {
     position: relative;
-    top: 160px;
     z-index: 0;
   }
 
