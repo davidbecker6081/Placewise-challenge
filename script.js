@@ -1,6 +1,6 @@
 $(document).ready(() => {
   document.querySelector('#the-dude').currentTime = 10;
-  // $('.background-audio').trigger('play');
+  $('.background-audio').trigger('play');
   checkWindowWidth($(window).width())
 })
 
@@ -64,34 +64,26 @@ $('.tab').on('click', e => {
   }
 })
 
-const videoStartTimes = {
-  'the-dude': 10,
-  'walter': 8,
-  'donny': 1,
-  'jesus': 37,
-  'maude': 6
-}
-
 const VIDEO_URLS = {
   'the-dude': {
     low: 'assets/The-Dude-preview.m4v',
     high: 'assets/The-Dude-Clip-with-frame.mp4'
   },
   'walter': {
-    low: '',
-    high: ''
+    low: 'assets/Walter-clip-preview.m4v',
+    high: 'assets/Walter-Clip-With-Frame.mp4'
   },
   'donny': {
-    low: '',
-    high: ''
+    low: 'assets/Donny-clip-preview.m4v',
+    high: 'assets/Donny-Clip-With-Frame.mp4'
   },
   'jesus': {
-    low: '',
-    high: ''
+    low: 'assets/jesus-clip-preview.mp4',
+    high: 'assets/Jesus-Clip-With-Frame.mp4'
   },
   'maude': {
-    low: '',
-    high: ''
+    low: 'assets/Maude-preview.mp4',
+    high: 'assets/Maude-Clip-with-frame.mp4'
   }
 }
 
@@ -107,10 +99,10 @@ const videoOnMouseEnter = (e) => {
   const videoId = $(e.target).attr('id');
   $(`#${videoId}`).trigger('play');
   const video = document.querySelector(`#${videoId}`);
-  video.currentTime = videoStartTimes[videoId]
   video.ontimeupdate = () => {
-    if (video.currentTime > videoStartTimes[videoId] + 3) {
-      video.currentTime = videoStartTimes[videoId]
+    if (video.currentTime >= video.duration) {
+      video.currentTime = 0
+      $(e.target).trigger('play')
     }
   }
 }
@@ -134,20 +126,23 @@ function videoControls(video) {
 $('.placeholder').on('click', (e) => {
   $('.placeholder').unbind('mouseleave')
   $('.placeholder').unbind('mouseenter')
+  $(e.target).trigger('pause');
   const videoId = $(e.target).attr('id');
+  const quality = 'high';
+  const url = VIDEO_URLS[videoId][quality];
+
   $('.video-player-container').prepend(`
     <video class="video-player-video" id="${videoId}-max">
-      <source class="video-window" src=${videoPaths[videoId]} type="video/mp4">
+      <source class="video-window" src=${url} type="video/mp4">
       Your browser does not support the video tag.
     </video>`)
   $('.close-btn').show();
-  $(e.target).trigger('pause');
   $('main').hide();
+  $('.play-btn').hide();
   $('.video-player-container').removeClass('hidden');
   document.querySelector('.background-audio').volume = 0.1;
   $(`#${videoId}-max`).trigger('play');
   const video = document.querySelector(`#${videoId}`);
-  $('main').hide();
   video.currentTime = 0;
   const currentVideo = new videoControls(video)
   $('.tv-on-sound').trigger('play');
@@ -178,7 +173,7 @@ $('.close-btn').on('click', (e) => {
 
 $('.video-player-container').on('click', (e) => {
   const video = document.querySelector('.video-player-video')
-  if (video.paused) {
+  if (video && video.paused) {
     $('.video-player-video').trigger('play')
     $('.play-btn').hide();
   } else {

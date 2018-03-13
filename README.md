@@ -27,7 +27,7 @@
   - Things I tried but couldn't figure out in time
     - Add play/pause button on hover
       - Create separate branch for code that doesn't work
-      
+
       `const togglePausePlayBtn = (e, button = 'play') => {
         console.log(e)
         if (e === 'enter' && button === 'play') {
@@ -76,6 +76,8 @@
         bindEventsVideoPlayer('pause')
       })`
 
+      - `Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). `https://goo.gl/LdLk22` - caused by play() returning a promise - need to wait until promise is resolved and then call pause() with a catch error - also need some loading animation - https://developers.google.com/web/updates/2017/06/play-request-was-interrupted`
+      - Fix audio when max video opens, so that tv on sound is edited in movie edit
   - Next Steps:
     - Each character has own color for .active
     - Find art characters for tabs on hover
