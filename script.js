@@ -8,15 +8,15 @@ $(window).on('resize', () => { checkWindowWidth($(window).width()) })
 const checkWindowWidth = (windowWidth) => {
   if (windowWidth <= 700) {
     unbindPlaceholderEvents();
-    togglePlayButton('show')
+    toggleButton($('.play-btn-mobile'), 'show')
   } else {
     bindPlaceholderEvents();
-    togglePlayButton('hide')
+    toggleButton($('.play-btn-mobile'), 'hide')
   }
 }
 
-const togglePlayButton = (state) => {
-  return state === 'show' ? $('.play-btn-mobile').show() : $('.play-btn-mobile').hide()
+const toggleButton = (button, state) => {
+  return state === 'show' ? button.show() : button.hide()
 }
 
 const unbindPlaceholderEvents = () => {
@@ -93,8 +93,8 @@ const VIDEO_URLS = {
 const videoOnMouseEnter = (e) => {
   const videoId = $(e.target).attr('id');
   const selectedVideo = document.querySelector(`#${videoId}`);
-  $(`#${videoId}`).trigger('play');
-  checkVideoTime(selectedVideo, $(e.target))
+  togglePlayPause($(`#${videoId}`), 'play');
+  checkVideoTime(selectedVideo, $(e.target));
 }
 
 
@@ -105,7 +105,7 @@ const checkVideoTime = (video, target) => {
       const maxVideo = document.querySelector('.video-player-video')
       if (maxVideo.currentTime >= maxVideo.duration) {
         maxVideo.currentTime = 0
-        $('.play-btn').show();
+        toggleButton($('.play-btn'), 'show');
       }
     })
   } else {
@@ -132,15 +132,6 @@ const videoOnMouseLeave = (e) => {
 $('.placeholder').mouseenter(videoOnMouseEnter)
 $('.placeholder').mouseleave(videoOnMouseLeave)
 
-function videoControls(video) {
-  this.video = video;
-  this.state = 'pause';
-  this.play = () => this.video.play();
-  this.pause = () => this.video.pause();
-  this.currentTime = this.video.currentTime;
-  this.length = this.video.duration;
-}
-
 const prependVideoToPlayer = (videoId, url) => {
   return $('.video-player-container').prepend(`
     <video class="video-player-video" id="${videoId}-max">
@@ -150,17 +141,13 @@ const prependVideoToPlayer = (videoId, url) => {
 }
 
 const toggleVideoPlayerOn = (videoId) => {
-  $('.close-btn').show();
+  toggleButton($('.close-btn'), 'show');
   $('main').hide();
-  $('.play-btn').hide();
+  toggleButton($('.play-btn'), 'hide');
   $('.video-player-container').removeClass('hidden');
   document.querySelector('.background-audio').volume = 0.1;
-  $('.tv-on-sound').trigger('play');
-  togglePlayPause($(`#${videoId}-max`), 'play')
-}
-
-const toggleVideoPlayerOff = (videoId) => {
-
+  togglePlayPause($('.tv-on-sound'), 'play');
+  togglePlayPause($(`#${videoId}-max`), 'play');
 }
 
 $('.placeholder').on('click', (e) => {
@@ -181,13 +168,13 @@ const playCloseSounds = () => {
   document.querySelector('.background-audio').volume = 1;
   document.querySelector('.close-sound').currentTime = 1;
   document.querySelector('.close-sound').volume = 0.3;
-  $('.close-sound').trigger('play');
+  togglePlayPause($('.close-sound'), 'play');
 }
 
 const toggleMainView = () => {
   $('.video-player-container').addClass('hidden');
   $('.video-player-video').remove();
-  $('.close-btn').hide();
+  toggleButton($('.close-btn'), 'hide');
   $('.crash-effect').show();
   $('main').css('animation', 'none');
   $('main').show();
@@ -202,13 +189,13 @@ const closeVideoPlayer = () => {
 
 $('.close-btn').on('click', closeVideoPlayer)
 
-$('.video-player-container').on('click', (e) => {
-  const video = document.querySelector('.video-player-video')
-  if (video && video.paused) {
-    $('.video-player-video').trigger('play')
-    $('.play-btn').hide();
-  } else {
-    $('.video-player-video').trigger('pause')
-    $('.play-btn').show();
-  }
-})
+const toggleVideoPlayerState = () => {
+  const video = document.querySelector('.video-player-video');
+  const playState = video && video.paused ? 'play' : 'pause';
+  const displayState = video && video.paused? 'hide' : 'show';
+
+  togglePlayPause($('.video-player-video'), playState);
+  toggleButton($('.play-btn'), displayState);
+}
+
+$('.video-player-container').on('click', toggleVideoPlayerState)
