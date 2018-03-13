@@ -97,11 +97,23 @@ const videoOnMouseEnter = (e) => {
   checkVideoTime(selectedVideo, $(e.target))
 }
 
+
+
 const checkVideoTime = (video, target) => {
-  video.ontimeupdate = () => {
-    if (video.currentTime >= video.duration) {
-      video.currentTime = 0
-      togglePlayPause(target, 'play')
+  if (!target) {
+    video.on('timeupdate', () => {
+      const maxVideo = document.querySelector('.video-player-video')
+      if (maxVideo.currentTime >= maxVideo.duration) {
+        maxVideo.currentTime = 0
+        $('.play-btn').show();
+      }
+    })
+  } else {
+    video.ontimeupdate = () => {
+      if (video.currentTime >= video.duration) {
+        video.currentTime = 0
+        togglePlayPause(target, 'play')
+      }
     }
   }
 }
@@ -162,15 +174,9 @@ $('.placeholder').on('click', (e) => {
   toggleVideoPlayerOn(videoId);
 
   const video = document.querySelector(`#${videoId}`);
-  video.currentTime = 0;
-  
-  $('.video-player-video').on('timeupdate', () => {
-    const maxVideo = document.querySelector('.video-player-video')
-    if (maxVideo.currentTime >= maxVideo.duration) {
-      maxVideo.currentTime = 0
-      $('.play-btn').show();
-    }
-  })
+  resetVideo(video);
+  checkVideoTime($('.video-player-video'), null)
+
 })
 
 $('.close-btn').on('click', (e) => {
