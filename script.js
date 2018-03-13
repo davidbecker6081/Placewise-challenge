@@ -167,33 +167,40 @@ $('.placeholder').on('click', (e) => {
   const videoId = $(e.target).attr('id');
   const quality = 'high';
   const url = VIDEO_URLS[videoId][quality];
+  const video = document.querySelector(`#${videoId}`);
 
   unbindPlaceholderEvents();
   togglePlayPause($(e.target), 'pause');
   prependVideoToPlayer(videoId, url);
   toggleVideoPlayerOn(videoId);
-
-  const video = document.querySelector(`#${videoId}`);
   resetVideo(video);
   checkVideoTime($('.video-player-video'), null)
-
 })
 
-$('.close-btn').on('click', (e) => {
+const playCloseSounds = () => {
   document.querySelector('.background-audio').volume = 1;
   document.querySelector('.close-sound').currentTime = 1;
   document.querySelector('.close-sound').volume = 0.3;
   $('.close-sound').trigger('play');
+}
+
+const toggleMainView = () => {
+  $('.video-player-container').addClass('hidden');
+  $('.video-player-video').remove();
   $('.close-btn').hide();
   $('.crash-effect').show();
-  $('.video-player-video').trigger('pause');
-  $('.placeholder').bind('mouseenter', videoOnMouseEnter)
-  $('.placeholder').bind('mouseleave', videoOnMouseLeave)
-  $('.video-player-container').addClass('hidden');
   $('main').css('animation', 'none');
   $('main').show();
-  $('.video-player-video').remove();
-})
+}
+
+const closeVideoPlayer = () => {
+  playCloseSounds();
+  bindPlaceholderEvents();
+  togglePlayPause($('.video-player-video'), 'pause');
+  toggleMainView();
+}
+
+$('.close-btn').on('click', closeVideoPlayer)
 
 $('.video-player-container').on('click', (e) => {
   const video = document.querySelector('.video-player-video')
