@@ -106,16 +106,18 @@ const checkVideoTime = (video, target) => {
   }
 }
 
-const togglePlayPause = (video, action) => {
-  console.log(video, action)
-  video.trigger(action)
+const togglePlayPause = (video, action) => video.trigger(action);
+
+const resetVideo = (video) => video.currentTime = 0;
+
+const videoOnMouseLeave = (e) => {
+  const videoId = $(e.target).attr('id');
+  const video = document.querySelector(`#${videoId}`);
+  togglePlayPause($(e.target), 'pause');
+  resetVideo(video);
 }
 
-const videoOnMouseLeave = () => {
-  $('video').trigger('pause');
-}
-
-$('.placeholder').mouseenter((e) => videoOnMouseEnter(e))
+$('.placeholder').mouseenter(videoOnMouseEnter)
 $('.placeholder').mouseleave(videoOnMouseLeave)
 
 function videoControls(video) {
