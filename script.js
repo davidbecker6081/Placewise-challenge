@@ -29,14 +29,6 @@ const bindPlaceholderEvents = () => {
   $('.placeholder').bind('mouseleave', videoOnMouseLeave);
 }
 
-const videoClasses = {
-  'placeholder the-dude': 'the-dude',
-  'placeholder walter': 'walter',
-  'placeholder donny': 'donny',
-  'placeholder jesus': 'jesus',
-  'placeholder maude': 'maude',
-}
-
 const addContentActive = (position) => {
   $('.acc-content').each((i, elem) => {
     if (position === i) {
@@ -98,24 +90,25 @@ const VIDEO_URLS = {
   }
 }
 
-const videoPaths = {
-  'the-dude': 'assets/The-Dude-Clip-with-frame.mp4',
-  'walter': 'url1',
-  'donny': 'url1',
-  'jesus': 'url1',
-  'maude': 'url1'
-}
-
 const videoOnMouseEnter = (e) => {
   const videoId = $(e.target).attr('id');
+  const selectedVideo = document.querySelector(`#${videoId}`);
   $(`#${videoId}`).trigger('play');
-  const video = document.querySelector(`#${videoId}`);
+  checkVideoTime(selectedVideo, $(e.target))
+}
+
+const checkVideoTime = (video, target) => {
   video.ontimeupdate = () => {
     if (video.currentTime >= video.duration) {
       video.currentTime = 0
-      $(e.target).trigger('play')
+      togglePlayPause(target, 'play')
     }
   }
+}
+
+const togglePlayPause = (video, action) => {
+  console.log(video, action)
+  video.trigger(action)
 }
 
 const videoOnMouseLeave = () => {
