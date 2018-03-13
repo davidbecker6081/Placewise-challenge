@@ -129,29 +129,41 @@ function videoControls(video) {
   this.length = this.video.duration;
 }
 
-$('.placeholder').on('click', (e) => {
-  $('.placeholder').unbind('mouseleave')
-  $('.placeholder').unbind('mouseenter')
-  $(e.target).trigger('pause');
-  const videoId = $(e.target).attr('id');
-  const quality = 'high';
-  const url = VIDEO_URLS[videoId][quality];
-
-  $('.video-player-container').prepend(`
+const prependVideoToPlayer = (videoId, url) => {
+  return $('.video-player-container').prepend(`
     <video class="video-player-video" id="${videoId}-max">
       <source class="video-window" src=${url} type="video/mp4">
       Your browser does not support the video tag.
     </video>`)
+}
+
+const toggleVideoPlayerOn = (videoId) => {
   $('.close-btn').show();
   $('main').hide();
   $('.play-btn').hide();
   $('.video-player-container').removeClass('hidden');
   document.querySelector('.background-audio').volume = 0.1;
-  $(`#${videoId}-max`).trigger('play');
+  $('.tv-on-sound').trigger('play');
+  togglePlayPause($(`#${videoId}-max`), 'play')
+}
+
+const toggleVideoPlayerOff = (videoId) => {
+
+}
+
+$('.placeholder').on('click', (e) => {
+  const videoId = $(e.target).attr('id');
+  const quality = 'high';
+  const url = VIDEO_URLS[videoId][quality];
+
+  unbindPlaceholderEvents();
+  togglePlayPause($(e.target), 'pause');
+  prependVideoToPlayer(videoId, url);
+  toggleVideoPlayerOn(videoId);
+
   const video = document.querySelector(`#${videoId}`);
   video.currentTime = 0;
-  const currentVideo = new videoControls(video)
-  $('.tv-on-sound').trigger('play');
+  
   $('.video-player-video').on('timeupdate', () => {
     const maxVideo = document.querySelector('.video-player-video')
     if (maxVideo.currentTime >= maxVideo.duration) {
