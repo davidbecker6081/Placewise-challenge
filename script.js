@@ -2,7 +2,7 @@ const placeHolderEvents = {
   click: (e) => placeHolderClickEvent(e),
   mouseenter: () => videoOnMouseEnter,
   mouseleave: () => videoOnMouseLeave
-}
+};
 
 const VIDEO_URLS = {
   'the-dude': {
@@ -25,7 +25,7 @@ const VIDEO_URLS = {
     low: 'assets/Maude-preview.mp4',
     high: 'assets/Maude-Clip-with-frame.mp4'
   }
-}
+};
 
 const addContentActive = (position) => {
   $('.acc-content').each((i, elem) => {
@@ -33,48 +33,48 @@ const addContentActive = (position) => {
       $(elem).addClass('acc-content-active');
     }
   })
-}
+};
 
 const bindPlaceholderEvents = () => {
   $('.placeholder').bind('mouseenter', videoOnMouseEnter);
   $('.placeholder').bind('mouseleave', videoOnMouseLeave);
-}
+};
 
 const checkVideoTime = (video, target) => {
   if (!target) {
     video.on('timeupdate', () => {
-      const maxVideo = document.querySelector('.video-player-video')
+      const maxVideo = document.querySelector('.video-player-video');
       if (maxVideo.currentTime >= maxVideo.duration) {
-        maxVideo.currentTime = 0
+        maxVideo.currentTime = 0;
         toggleButton($('.play-btn'), 'show');
       }
     })
   } else {
     video.ontimeupdate = () => {
       if (video.currentTime >= video.duration) {
-        video.currentTime = 0
-        togglePlayPause(target, 'play')
+        video.currentTime = 0;
+        togglePlayPause(target, 'play');
       }
     }
   }
-}
+};
 
 const checkWindowWidth = (windowWidth) => {
   if (windowWidth <= 700) {
     unbindPlaceholderEvents();
-    toggleButton($('.play-btn-mobile'), 'show')
+    toggleButton($('.play-btn-mobile'), 'show');
   } else {
     bindPlaceholderEvents();
-    toggleButton($('.play-btn-mobile'), 'hide')
+    toggleButton($('.play-btn-mobile'), 'hide');
   }
-}
+};
 
 const closeVideoPlayer = () => {
   playCloseSounds();
   bindPlaceholderEvents();
   togglePlayPause($('.video-player-video'), 'pause');
   toggleMainView();
-}
+};
 
 const placeHolderClickEvent = (e) => {
   const videoId = $(e.target).attr('id');
@@ -87,15 +87,15 @@ const placeHolderClickEvent = (e) => {
   prependVideoToPlayer(videoId, url);
   toggleVideoPlayerOn(videoId);
   resetVideo(video);
-  checkVideoTime($('.video-player-video'), null)
-}
+  checkVideoTime($('.video-player-video'), null);
+};
 
 const playCloseSounds = () => {
   document.querySelector('.background-audio').volume = 1;
   document.querySelector('.close-sound').currentTime = 1;
   document.querySelector('.close-sound').volume = 0.3;
   togglePlayPause($('.close-sound'), 'play');
-}
+};
 
 const prependVideoToPlayer = (videoId, url) => {
   return $('.video-player-container').prepend(`
@@ -103,7 +103,7 @@ const prependVideoToPlayer = (videoId, url) => {
       <source class="video-window" src=${url} type="video/mp4">
       Your browser does not support the video tag.
     </video>`)
-}
+};
 
 const resetClasses = (tab) => {
   $('.tab').each((i, tab) => {
@@ -112,7 +112,7 @@ const resetClasses = (tab) => {
     $(tab).children('.fa').addClass('fa-plus');
     $(tab).parent().children('.acc-content').removeClass('acc-content-active');
   })
-}
+};
 
 const resetVideo = (video) => video.currentTime = 0;
 
@@ -123,7 +123,7 @@ const tabClickEventHandler = (e) => {
   const isTab = tab.hasClass('tab');
 
   if (isTab) {
-    resetClasses()
+    resetClasses();
   }
 
   if (!tabIsActive && isTab) {
@@ -135,11 +135,11 @@ const tabClickEventHandler = (e) => {
       }
     })
   }
-}
+};
 
 const toggleButton = (button, state) => {
   return state === 'show' ? button.show() : button.hide()
-}
+};
 
 const toggleMainView = () => {
   $('.video-player-container').addClass('hidden');
@@ -148,7 +148,7 @@ const toggleMainView = () => {
   $('.crash-effect').show();
   $('main').css('animation', 'none');
   $('main').show();
-}
+};
 
 const togglePlayPause = (video, action) => video.trigger(action);
 
@@ -160,7 +160,7 @@ const toggleVideoPlayerOn = (videoId) => {
   document.querySelector('.background-audio').volume = 0.1;
   togglePlayPause($('.tv-on-sound'), 'play');
   togglePlayPause($(`#${videoId}-max`), 'play');
-}
+};
 
 const toggleVideoPlayerState = () => {
   const video = document.querySelector('.video-player-video');
@@ -169,37 +169,37 @@ const toggleVideoPlayerState = () => {
 
   togglePlayPause($('.video-player-video'), playState);
   toggleButton($('.play-btn'), displayState);
-}
+};
 
 const unbindPlaceholderEvents = () => {
   $('.placeholder').unbind('mouseleave');
   $('.placeholder').unbind('mouseenter');
-}
+};
 
 const videoOnMouseEnter = (e) => {
   const videoId = $(e.target).attr('id');
   const selectedVideo = document.querySelector(`#${videoId}`);
   togglePlayPause($(`#${videoId}`), 'play');
   checkVideoTime(selectedVideo, $(e.target));
-}
+};
 
 const videoOnMouseLeave = (e) => {
   const videoId = $(e.target).attr('id');
   const video = document.querySelector(`#${videoId}`);
   togglePlayPause($(e.target), 'pause');
   resetVideo(video);
-}
+};
 
 $(document).ready(() => {
   $('.background-audio').trigger('play');
-  checkWindowWidth($(window).width())
-})
+  checkWindowWidth($(window).width());
+});
 
-$(window).on('resize', () => { checkWindowWidth($(window).width()) })
+$(window).on('resize', () => { checkWindowWidth($(window).width()) });
 
-$('.close-btn').on('click', closeVideoPlayer)
+$('.close-btn').on('click', closeVideoPlayer);
 $('.placeholder').mouseenter(placeHolderEvents.mouseenter);
 $('.placeholder').mouseleave(placeHolderEvents.mouseleave);
 $('.placeholder').on('click', placeHolderEvents.click);
-$('.tab').on('click', e => tabClickEventHandler(e))
-$('.video-player-container').on('click', toggleVideoPlayerState)
+$('.tab').on('click', e => tabClickEventHandler(e));
+$('.video-player-container').on('click', toggleVideoPlayerState);
